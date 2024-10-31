@@ -1,0 +1,73 @@
+[
+  {
+    "name": "AWSALBCORS",
+    "value": "a/yJxyJLr24gF25Dp+3Xv0L8DRnJw45YXV9yziCYj0S4RuW+fBeUCmD5BVdCONFVEMf5JqttlS0WoXai0LdI4BqIb0ScsCktUFPHIcYU/bf/tiZ/aU8qcFlX5MGu",
+    "domain": "apex.nexuspointapex.com",
+    "path": "/",
+    "expires": 1730977186.812258,
+    "size": 134,
+    "httpOnly": false,
+    "secure": true,
+    "session": false,
+    "sameSite": "None",
+    "priority": "Medium",
+    "sameParty": false,
+    "sourceScheme": "Secure"
+  },
+  {
+    "name": "version",
+    "value": "42.0.0%2004%2F06%2F24",
+    "domain": "apex.nexuspointapex.com",
+    "path": "/",
+    "expires": 1764932386.617904,
+    "size": 28,
+    "httpOnly": false,
+    "secure": true,
+    "session": false,
+    "priority": "Medium",
+    "sameParty": false,
+    "sourceScheme": "Secure"
+  },
+  {
+    "name": "2fa",
+    "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0d29fZmFjdG9yX2NvbmZpcm1lZF9hdCI6IjIwMjQtMTAtMzEgMTA6NTk6NDUiLCJpYXQiOjE3MzAzNzIzODUsImV4cCI6MTczMjk2NDM4NSwibmJmIjoxNzMwMzcyMzg1LCJqdGkiOiI5ZDMwYzBjYS1kYjdhLTRkZTUtYTJmYS1iYWEwZWZhMzlhOGUiLCJzdWIiOiIxZGMyNjI0Yjk5MjM0YzExYTA4OGI3M2MwMzkxMjg1YiIsImd1aWQiOiIxZGMyNjI0Yjk5MjM0YzExYTA4OGI3M2MwMzkxMjg1YiIsInRlbmFudCI6ImQ5MDEzYjVhLTQ5OTAtNGYzZS1iZWVjLTRlMWZjODU5OTBlYiJ9.Su--DKali03VjqRGhsOujPVRMAFeESz9NPBpVe3Se6w",
+    "domain": "apex.nexuspointapex.com",
+    "path": "/",
+    "expires": 1732964385.443512,
+    "size": 452,
+    "httpOnly": true,
+    "secure": true,
+    "session": false,
+    "priority": "Medium",
+    "sameParty": false,
+    "sourceScheme": "Secure"
+  },
+  {
+    "name": "AWSALB",
+    "value": "a/yJxyJLr24gF25Dp+3Xv0L8DRnJw45YXV9yziCYj0S4RuW+fBeUCmD5BVdCONFVEMf5JqttlS0WoXai0LdI4BqIb0ScsCktUFPHIcYU/bf/tiZ/aU8qcFlX5MGu",
+    "domain": "apex.nexuspointapex.com",
+    "path": "/",
+    "expires": 1730977186.811939,
+    "size": 130,
+    "httpOnly": false,
+    "secure": false,
+    "session": false,
+    "priority": "Medium",
+    "sameParty": false,
+    "sourceScheme": "Secure"
+  },
+  {
+    "name": "token",
+    "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2Zvdy1hcGkubmV4dXNwb2ludGFwZXguY28udWsvYXBpL3YyL2F1dGgvbG9naW4iLCJpYXQiOjE3MzAzNzIzODAsImV4cCI6MTczMDM3MzI4MCwibmJmIjoxNzMwMzcyMzgwLCJqdGkiOiJqejgweURMU2xWaDI4UlE2Iiwic3ViIjoiMWRjMjYyNGI5OTIzNGMxMWEwODhiNzNjMDM5MTI4NWIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3IiwiZG9tYWluIjoic3dhbnN3YXlnYXJhZ2VzLm5leHVzcG9pbnRhcGV4LmNvLnVrIiwidGVuYW50IjoiZDkwMTNiNWEtNDk5MC00ZjNlLWJlZWMtNGUxZmM4NTk5MGViIiwidGVuYW50X25hbWUiOiJTd2Fuc3dheSBHYXJhZ2VzIiwiaWQiOjE4MiwiZ3VpZCI6IjFkYzI2MjRiOTkyMzRjMTFhMDg4YjczYzAzOTEyODViIiwiZmlyc3RfbmFtZSI6IkFkcmlhbiIsImxhc3RfbmFtZSI6IkdsdWgiLCJlbWFpbCI6ImFkcmlhbi5nbHVoQG5leHVzcG9pbnQuY28udWsiLCJtb2JpbGUiOm51bGwsImNvbXBhbnlfaWQiOjc5LCJzaXRlX2lkIjo4NCwic2x1ZyI6ImFkcmlhbi1nbHVoIiwiY29tcGFueSI6eyJpZCI6NzksIm5hbWUiOiJTd2Fuc3dheSBHcm91cCIsImNvZGUiOiIxMDEifSwic2l0ZSI6eyJpZCI6ODQsIm5hbWUiOiJCbGFja2J1cm4gQXVkaSAtIFNlcnZpY2UiLCJjb2RlIjoiMzI2IiwiY291bnRyeSI6IkdCIiwicHJpbWFyeV9sYW5ndWFnZSI6bnVsbH0sInJvbGVzIjpbImRldmVsb3BlciJdLCJtb2R1bGVzIjpbImNybSIsImNtcyIsImtwaSIsImFkbWluIl19.KuO91wJW4sLfMgbhxodvoDSpxsHcrC78qJhahfLil3M",
+    "domain": "apex.nexuspointapex.com",
+    "path": "/",
+    "expires": -1,
+    "size": 1118,
+    "httpOnly": true,
+    "secure": true,
+    "session": true,
+    "priority": "Medium",
+    "sameParty": false,
+    "sourceScheme": "Secure"
+  }
+]

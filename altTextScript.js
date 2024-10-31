@@ -4,6 +4,21 @@ const path = require('path');
 const csv = require('csv-parser');
 // const setTimeout = require('node:timers/promises');
 
+const cookiesPath = path.join(__dirname, 'cookies.json');
+const outputCsvPath = path.join(__dirname, 'outputCSV.csv');
+
+// Function to save URL and alt text to the CSV
+const saveToCsv = (url, altText, originalImageInput, populatedAltTextValue) => {
+    const isFileEmpty = !fs.existsSync(outputCsvPath);
+    const csvLine = `"${url}","${altText}","${originalImageInput}","${populatedAltTextValue}"\n`;
+
+    if (isFileEmpty) {
+        fs.writeFileSync(outputCsvPath, 'URL,AltText,OriginalImageInput,populatedAltTextValue\n', { flag: 'a' });  // Write headers if file is empty
+    }
+
+    fs.writeFileSync(outputCsvPath, csvLine, { flag: 'a' });  // Append URL and AltText to CSV
+};
+
 // Load URLs from CSV
 const loadUrlsFromCsv = (filePath) => {
     return new Promise((resolve, reject) => {
@@ -42,17 +57,31 @@ const loadUrlsFromCsv = (filePath) => {
     const page = await browser.newPage();
     const urls = await loadUrlsFromCsv(path.join(__dirname, 'csv', 'pageUrlsCSV.csv'));
 
+    if (fs.existsSync(cookiesPath)) {
+        const cookies = JSON.parse(fs.readFileSync(cookiesPath, 'utf8'));
+        await page.setCookie(...cookies);
+        console.log('Loaded cookies from previous session');
+    }
+
     // Step 1: Login
     await page.goto('https://localhost/login');
     console.log("Navigated to login page");
 
-    await page.waitForSelector('input[name="email"]');
-    await page.type('input[name="email"]', 'adrian.gluh@nexuspoint.co.uk');
-    await page.type('input[name="password"]', 'Password123!');
-    await page.type('input[name="domain"]', 'swanswaygarages');
-    await page.click('button[type="submit"]');
-    console.log("Logged in successfully");
+    await new Promise(resolve => setTimeout(resolve, 3000));
 
+    if (await page.evaluate(() => document.querySelector('#__layout > div > main > section.welcome > div > h1'))) {
+        console.log("Already logged in with cookies, skipping login steps ");
+    } else {
+        console.log("Logging in with credentials");
+        await page.waitForSelector('input[name="email"]');
+        await page.type('input[name="email"]', 'adrian.gluh@nexuspoint.co.uk');
+        await page.type('input[name="password"]', 'Password123!');
+        await page.type('input[name="domain"]', 'swanswaygarages');
+        await page.click('button[type="submit"]');
+        console.log("Logged in successfully, waiting for 2FA");
+        await new Promise(resolve => setTimeout(resolve, 3000)); 
+    }   
+    await new Promise(resolve => setTimeout(resolve, 3000)); 
     // Check for modal about software update after login
     try {
         await page.waitForSelector('#__layout > div > div.modal-center.new-software-version-modal', { timeout: 3000 });
@@ -63,13 +92,18 @@ const loadUrlsFromCsv = (filePath) => {
         console.log('Closed software update modal');
 
         //Wait for the page to reload
-        await page.waitForNavigation();
+        await page.waitForNavigation({ waitUntil: 'networkidle2' });
         console.log('Page successfuly reloaded');
+
+        const cookies = await page.cookies();
+        fs.writeFileSync(cookiesPath, JSON.stringify(cookies, null, 2));
+        console.log('Saved cookies for future sessions');
 
     } catch(error) {
         // modal didn't appear: log and continue
         console.log('Software update modal not detected, process continues');
-    }    
+    } 
+    // await new Promise(resolve => setTimeout(resolve, 10000000)); 
 
     // Step 2: Navigate to View/Edit Pages
     await page.waitForSelector('#__layout > div > main > section.suite-collection > div > article.package.cms.aos-init.aos-animate > a');
@@ -97,7 +131,7 @@ const loadUrlsFromCsv = (filePath) => {
         await page.waitForSelector('#cms_pages_search');
         console.log("Found search input");
         
-        // clear the #pages-search input before typing new altTextInput
+        // clear the #pages-search input before typing new searchInput
         await page.evaluate(() => {
             const searchInput = document.querySelector('#cms_pages_search');
             if (searchInput) {
@@ -124,6 +158,7 @@ const loadUrlsFromCsv = (filePath) => {
             console.log("Clicked button to view options");
         }
         // console.log("Clicked button to view options");
+        await new Promise(resolve => setTimeout(resolve, 2000));
         
         // click the edit page button
         const editPageButton = await page.$$('span.text-body-desktop-paragraph');
@@ -132,14 +167,14 @@ const loadUrlsFromCsv = (filePath) => {
             console.log("Selected specific option");
         }
 
-        await new Promise(resolve => setTimeout(resolve, 2000)); 
+        await new Promise(resolve => setTimeout(resolve, 3000)); 
 
         // Step 4: Navigate to Builder tab and locate Image Grid
         await page.waitForSelector('nav.page-header-nav');
         await page.click('nav > ul > li:nth-child(2)');
         console.log("Navigated to Builder tab");
 
-        await new Promise(resolve => setTimeout(resolve, 2000)); 
+        await new Promise(resolve => setTimeout(resolve, 3000)); 
         
         const imageGridSectionHandle = await page.evaluateHandle(() => {
             // find the header with the specific text and get its parent section
@@ -232,7 +267,10 @@ const loadUrlsFromCsv = (filePath) => {
             } else {
                 console.error("Alt text population failed");
             }
-            await new Promise(resolve => setTimeout(resolve, 2000)); 
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Save each URL and corresponding altText to CSV
+            saveToCsv(url, altTextInput, currentImageValue, populatedValue); 
         }
         
         // Save changes
